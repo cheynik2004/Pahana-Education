@@ -45,4 +45,42 @@ public class CustomerDAO {
         } catch (Exception e) { e.printStackTrace(); }
         return 0;
     }
+
+    public Customer getCustomer(int accountNo) {
+        try (Connection con = DBConnection.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(
+                "SELECT * FROM customers WHERE account_no=?"
+            );
+            ps.setInt(1, accountNo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Customer(
+                    rs.getInt("account_no"),
+                    rs.getString("name"),
+                    rs.getString("address"),
+                    rs.getString("telephone"),
+                    rs.getInt("units_consumed")
+                );
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return null;
+    }
+
+    public java.util.List<Customer> getAllCustomers() {
+        java.util.List<Customer> customers = new java.util.ArrayList<>();
+        try (Connection con = DBConnection.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM customers");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                customers.add(new Customer(
+                    rs.getInt("account_no"),
+                    rs.getString("name"),
+                    rs.getString("address"),
+                    rs.getString("telephone"),
+                    0 // unitsConsumed not needed here
+                ));
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return customers;
+    }
 }

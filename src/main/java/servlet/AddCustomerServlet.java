@@ -14,15 +14,19 @@ public class AddCustomerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String telephone = request.getParameter("telephone");
-        int units = Integer.parseInt(request.getParameter("units_consumed"));
+        // Remove units_consumed from add customer
+        int units = 0; // Default to 0 or set as needed
 
         Customer c = new Customer(accountNo, name, address, telephone, units);
         boolean success = new CustomerDAO().addCustomer(c);
 
         if (success) {
-            response.sendRedirect("dashboard.jsp");
+            request.setAttribute("success", "Customer added successfully!");
+            request.getRequestDispatcher("addCustomer.jsp").forward(request, response);
         } else {
             response.getWriter().println("Error adding customer");
         }
     }
 }
+
+

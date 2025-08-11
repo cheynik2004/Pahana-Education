@@ -50,4 +50,36 @@ public class ItemDAO {
         } catch (Exception e) { e.printStackTrace(); }
         return 0;
     }
+
+    public java.util.List<Item> getAllItems() {
+        java.util.List<Item> items = new java.util.ArrayList<>();
+        try (Connection con = DBConnection.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM items");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                items.add(new Item(
+                    rs.getInt("item_id"),
+                    rs.getString("name"),
+                    rs.getDouble("price_per_unit")
+                ));
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return items;
+    }
+
+    public Item getItem(int itemId) {
+        try (Connection con = DBConnection.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM items WHERE item_id=?");
+            ps.setInt(1, itemId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Item(
+                    rs.getInt("item_id"),
+                    rs.getString("name"),
+                    rs.getDouble("price_per_unit")
+                );
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return null;
+    }
 }
