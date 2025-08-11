@@ -1,11 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ASUS Vivobook
-  Date: 8/10/2025
-  Time: 1:40 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.Customer" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="model.Customer,dao.CustomerDAO,java.util.List" %>
+<%
+    dao.CustomerDAO cdao = new dao.CustomerDAO();
+    java.util.List<Customer> customers = cdao.getAllCustomers();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +27,7 @@
             Telephone: <input type="text" name="telephone" value="<%= request.getAttribute("telephone") != null ? request.getAttribute("telephone") : "" %>"><br><br>
             <input type="submit" name="update" value="Update Customer">
             <a href="dashboard.jsp" style="text-decoration:none;">
-                <input type="button" value="Back" style="margin-left:10px;">
+                <input type="button" value="Go Back to Dashboard" style="margin-left:10px;">
             </a>
         </form>
         <% if (request.getAttribute("success") != null) { %>
@@ -38,22 +35,23 @@
         <% } %>
     </div>
     <div class="table-section">
-        <% if (request.getAttribute("customer") != null) { 
-            // Assuming customer is a JavaBean or Map with getters
-            Object customerObj = request.getAttribute("customer");
-            // Replace with your actual customer object and fields
-        %>
+        <h3>All Customers</h3>
         <table border="1">
-            <tr><th>Account No</th><th>Name</th><th>Address</th><th>Telephone</th><th>Units Consumed</th></tr>
             <tr>
-                <td><%= ((Customer)customerObj).getAccountNo() %></td>
-                <td><%= ((Customer)customerObj).getName() %></td>
-                <td><%= ((Customer)customerObj).getAddress() %></td>
-                <td><%= ((Customer)customerObj).getTelephone() %></td>
-                <td><%= ((Customer)customerObj).getUnitsConsumed() %></td>
+                <th>Account No</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Telephone</th>
             </tr>
+            <% for (Customer c : customers) { %>
+            <tr>
+                <td><%= c.getAccountNo() %></td>
+                <td><%= c.getName() %></td>
+                <td><%= c.getAddress() %></td>
+                <td><%= c.getTelephone() %></td>
+            </tr>
+            <% } %>
         </table>
-        <% } %>
     </div>
 </div>
 </body>
