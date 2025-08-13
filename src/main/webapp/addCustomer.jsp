@@ -14,16 +14,25 @@
 </head>
 <body>
 <h2>Add New Customer</h2>
-<form action="addCustomer" method="post" style="display:inline;">
-    Account No: <input type="number" name="account_no" required min="1"><br><br>
-    Name: <input type="text" name="name" required pattern="[A-Za-z0-9 ]+" title="Only letters, numbers, and spaces allowed"><br><br>
-    Address: <input type="text" name="address" required pattern="[A-Za-z0-9 ,.-]+" title="Only letters, numbers, spaces, comma, dot, and dash allowed"><br><br>
-    Telephone: <input type="text" name="telephone" required pattern="\d{10}" maxlength="10" title="Enter a 10-digit number"><br><br>
-    <input type="submit" value="Add Customer">
-    <a href="dashboard.jsp" style="text-decoration:none;">
-        <input type="button" value="Back" style="margin-left:10px;">
-    </a>
+<form action="addCustomer" method="post">
+    <label for="account_no">Account No</label>
+    <input type="number" name="account_no" required>
+
+    <label for="name">Name</label>
+    <input type="text" name="name" required>
+
+    <label for="address">Address</label>
+    <input type="text" name="address" required>
+
+    <label for="telephone">Telephone</label>
+    <input type="text" name="telephone" required>
+
+    <div class="button-group">
+        <input type="submit" value="Add Customer">
+        <input type="button" value="Cancel" onclick="window.location.href='dashboard.jsp'">
+    </div>
 </form>
+
 
 <% if (request.getAttribute("success") != null) { %>
     <p style="color:green;"><%= request.getAttribute("success") %></p>
