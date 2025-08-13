@@ -10,19 +10,57 @@ public class EditCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int accountNo = Integer.parseInt(request.getParameter("account_no"));
-        String name = request.getParameter("name");
-        String address = request.getParameter("address");
-        String telephone = request.getParameter("telephone");
-        int units = Integer.parseInt(request.getParameter("units_consumed"));
+        String action = request.getParameter("search") != null ? "search" : "update";
+        String accountNoStr = request.getParameter("account_no");
 
-        Customer c = new Customer(accountNo, name, address, telephone, units);
-        boolean success = new CustomerDAO().updateCustomer(c);
+        if (accountNoStr == null || accountNoStr.trim().isEmpty()) {
+            request.setAttribute("error", "Account No is required.");
+            request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
+            return;
+        }
 
-        if (success) {
-            response.sendRedirect("dashboard.jsp");
+        int accountNo;
+        try {
+            accountNo = Integer.parseInt(accountNoStr);
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid Account No.");
+            request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
+            return;
+        }
+
+        if ("search".equals(action)) {
+            Customer customer = new CustomerDAO().getCustomer(accountNo);
+            request.setAttribute("selectedCustomer", customer);
+            if (customer != null) {
+                request.setAttribute("customer", customer);
+                request.setAttribute("name", customer.getName());
+                request.setAttribute("address", customer.getAddress());
+                request.setAttribute("telephone", customer.getTelephone());
+
+            } else {
+                request.setAttribute("error", "Customer not found.");
+            }
+            request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
         } else {
-            response.getWriter().println("Error updating customer");
+            // Update customer
+            String name = request.getParameter("name");
+            String address = request.getParameter("address");
+            String telephone = request.getParameter("telephone");
+
+            Customer existing = new CustomerDAO().getCustomer(accountNo);
+            int units = existing != null ? existing.getUnitsConsumed() : 0;
+
+            Customer c = new Customer(accountNo, name, address, telephone, units);
+            boolean success = new CustomerDAO().updateCustomer(c);
+
+            request.setAttribute("selectedCustomer", c); // Always set for field values
+
+            if (success) {
+                request.setAttribute("success", "Customer updated successfully!");
+            } else {
+                request.setAttribute("error", "Error updating customer");
+            }
+            request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
         }
     }
 }
