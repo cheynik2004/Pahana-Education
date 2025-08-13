@@ -15,6 +15,7 @@
 <html>
 <head>
     <title>Pahana Edu - Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="CSS/dashboard.css">
 </head>
 <body>
 <h2>Welcome to Pahana Edu Billing System</h2>

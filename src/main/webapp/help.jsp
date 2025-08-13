@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Help - Pahana Edu</title>
+    <link rel="stylesheet" type="text/css" href="CSS/help.css">
 </head>
 <body>
 <h2>Help & Guidelines</h2>

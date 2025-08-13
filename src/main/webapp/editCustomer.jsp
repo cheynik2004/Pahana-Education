@@ -7,6 +7,7 @@
 <html>
 <head>
     <title>Edit Customer</title>
+    <link rel="stylesheet" type="text/css" href="CSS/editCustomer.css">
     <style>
         .container { display: flex; }
         .form-section { margin-right: 40px; }

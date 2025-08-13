@@ -27,6 +27,7 @@
 <html>
 <head>
     <title>Bill Inquiry</title>
+    <link rel="stylesheet" type="text/css" href="CSS/billInquiry.css">
 </head>
 <body>
 <h2>Bill Inquiry</h2>

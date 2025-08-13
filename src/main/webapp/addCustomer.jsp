@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Add Customer</title>
+    <link rel="stylesheet" type="text/css" href="./CSS/addCustomer.css">
 </head>
 <body>
 <h2>Add New Customer</h2>

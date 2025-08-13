@@ -16,6 +16,7 @@
 <html>
 <head>
     <title>Generate Bill</title>
+    <link rel="stylesheet" type="text/css" href="CSS/bill.css">
     <style>
         .inline-tables { display: flex; gap: 40px; }
         .inline-tables > div { min-width: 300px; }
