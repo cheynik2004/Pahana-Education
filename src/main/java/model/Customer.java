@@ -12,7 +12,7 @@ public class Customer {
         this.name = name;
         this.address = address;
         this.telephone = telephone;
-        this.unitsConsumed = 0; // or keep previous value if needed
+        this.unitsConsumed = 0;
     }
 
     public Customer(int accountNo, String name, String address, String telephone, int unitsConsumed) {

@@ -17,27 +17,46 @@
 <head>
     <title>Generate Bill</title>
     <link rel="stylesheet" type="text/css" href="CSS/bill.css">
-    <style>
-        .inline-tables { display: flex; gap: 40px; }
-        .inline-tables > div { min-width: 300px; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="CSS/validation.css">
+    <script>
+        function showToast(message, isError = false) {
+            let toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "toast show" + (isError ? " error" : "");
+            setTimeout(function(){
+                toast.className = toast.className.replace("show", "");
+            }, 3000);
+        }
+        window.onload = function() {
+            <% if (request.getAttribute("success") != null) { %>
+            showToast("<%= request.getAttribute("success") %>");
+            <% } else if (request.getAttribute("error") != null) { %>
+            showToast("<%= request.getAttribute("error") %>", true);
+            <% } %>
+        }
+    </script>
 </head>
 <body>
+<div id="toast" class="toast"></div>
+
 <h2>Generate Bill</h2>
-<form action="billInquiry.jsp" method="post">
-    Account No: <input type="number" name="account_no" required>
-    Item No: 
+<form action="bill" method="post">
+    Account No:
+    <input type="number" name="account_no" required>
+    Item No:
     <select name="item_no" required>
         <% for (Item item : items) { %>
-            <option value="<%= item.getItemId() %>"><%= item.getItemId() %></option>
+        <option value="<%= item.getItemId() %>"><%= item.getItemId() %></option>
         <% } %>
     </select>
-    Quantity: <input type="number" name="quantity" required>
+    Quantity:
+    <input type="number" name="quantity" required>
     <input type="submit" name="generate" value="Generate">
-        <a href="dashboard.jsp" style="text-decoration:none;">
-        <input type="button" value="Back" style="margin-left:10px;">
+    <a href="dashboard.jsp" style="text-decoration:none;">
+        <input type="button" value="Back">
     </a>
 </form>
+
 <hr>
 <div class="inline-tables">
     <div>
@@ -70,4 +89,3 @@
 </div>
 </body>
 </html>
-

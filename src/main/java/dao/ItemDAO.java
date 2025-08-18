@@ -1,6 +1,7 @@
 package dao;
 
 import model.Item;
+import util.DBConnection;
 import java.sql.*;
 
 public class ItemDAO {

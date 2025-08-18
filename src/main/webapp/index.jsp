@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Pahana Edu - Login</title>
+    <link rel="stylesheet" type="text/css" href="CSS/login.css">
 </head>
 <body>
 <h2>Login</h2>

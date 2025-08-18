@@ -34,7 +34,7 @@ public class ItemServlet extends HttpServlet {
                 break;
         }
 
-        // Fetch updated item list
+
         request.setAttribute("items", dao.getAllItems());
         if (successMsg != null) {
             request.setAttribute("success", successMsg);

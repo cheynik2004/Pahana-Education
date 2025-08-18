@@ -10,7 +10,10 @@ public class EditCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String action = request.getParameter("search") != null ? "search" : "update";
+        String action = request.getParameter("search") != null ? "search" :
+                request.getParameter("update") != null ? "update" :
+                        request.getParameter("delete") != null ? "delete" : "";
+
         String accountNoStr = request.getParameter("account_no");
 
         if (accountNoStr == null || accountNoStr.trim().isEmpty()) {
@@ -28,39 +31,50 @@ public class EditCustomerServlet extends HttpServlet {
             return;
         }
 
-        if ("search".equals(action)) {
-            Customer customer = new CustomerDAO().getCustomer(accountNo);
-            request.setAttribute("selectedCustomer", customer);
-            if (customer != null) {
-                request.setAttribute("customer", customer);
-                request.setAttribute("name", customer.getName());
-                request.setAttribute("address", customer.getAddress());
-                request.setAttribute("telephone", customer.getTelephone());
+        CustomerDAO dao = new CustomerDAO();
 
-            } else {
-                request.setAttribute("error", "Customer not found.");
-            }
-            request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
-        } else {
-            // Update customer
-            String name = request.getParameter("name");
-            String address = request.getParameter("address");
-            String telephone = request.getParameter("telephone");
+        switch (action) {
+            case "search":
+                Customer customer = dao.getCustomer(accountNo);
+                request.setAttribute("selectedCustomer", customer);
+                if (customer != null) {
+                    request.setAttribute("name", customer.getName());
+                    request.setAttribute("address", customer.getAddress());
+                    request.setAttribute("telephone", customer.getTelephone());
+                } else {
+                    request.setAttribute("error", "Customer not found.");
+                }
+                break;
 
-            Customer existing = new CustomerDAO().getCustomer(accountNo);
-            int units = existing != null ? existing.getUnitsConsumed() : 0;
+            case "update":
+                String name = request.getParameter("name");
+                String address = request.getParameter("address");
+                String telephone = request.getParameter("telephone");
 
-            Customer c = new Customer(accountNo, name, address, telephone, units);
-            boolean success = new CustomerDAO().updateCustomer(c);
+                Customer existing = dao.getCustomer(accountNo);
+                int units = existing != null ? existing.getUnitsConsumed() : 0;
 
-            request.setAttribute("selectedCustomer", c); // Always set for field values
+                Customer c = new Customer(accountNo, name, address, telephone, units);
+                boolean success = dao.updateCustomer(c);
 
-            if (success) {
-                request.setAttribute("success", "Customer updated successfully!");
-            } else {
-                request.setAttribute("error", "Error updating customer");
-            }
-            request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
+                request.setAttribute("selectedCustomer", c);
+                if (success) {
+                    request.setAttribute("success", "Customer updated successfully!");
+                } else {
+                    request.setAttribute("error", "Error updating customer");
+                }
+                break;
+
+            case "delete":
+                boolean deleted = dao.deleteCustomer(accountNo);
+                if (deleted) {
+                    request.setAttribute("success", "Customer deleted successfully!");
+                } else {
+                    request.setAttribute("error", "Error deleting customer");
+                }
+                break;
         }
+
+        request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
     }
 }

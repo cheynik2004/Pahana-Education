@@ -1,6 +1,7 @@
 package dao;
 
 import model.Customer;
+import util.DBConnection;
 import java.sql.*;
 
 public class CustomerDAO {
@@ -66,6 +67,18 @@ public class CustomerDAO {
         return null;
     }
 
+    public boolean deleteCustomer(int accountNo) {
+        try (Connection con = DBConnection.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM customers WHERE account_no=?");
+            ps.setInt(1, accountNo);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
     public java.util.List<Customer> getAllCustomers() {
         java.util.List<Customer> customers = new java.util.ArrayList<>();
         try (Connection con = DBConnection.getConnection()) {
@@ -77,7 +90,7 @@ public class CustomerDAO {
                     rs.getString("name"),
                     rs.getString("address"),
                     rs.getString("telephone"),
-                    0 // unitsConsumed not needed here
+                    0
                 ));
             }
         } catch (Exception e) { e.printStackTrace(); }
