@@ -11,16 +11,27 @@ public class BillServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int accountNo = Integer.parseInt(request.getParameter("account_no"));
-        String itemName = request.getParameter("item_name");
+        try {
+            int accountNo = Integer.parseInt(request.getParameter("account_no"));
+            int itemNo = Integer.parseInt(request.getParameter("item_no"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-        int units = new CustomerDAO().getUnitsConsumed(accountNo);
-        double price = new ItemDAO().getPrice(itemName);
+            CustomerDAO cdao = new CustomerDAO();
+            ItemDAO idao = new ItemDAO();
 
-        double total = BillCalculator.calculateBill(units, price);
+            double price = idao.getItem(itemNo).getPricePerUnit();
+            double total = BillCalculator.calculateBill(quantity, price);
 
-        request.setAttribute("billDetails", "Account No: " + accountNo + ", Item: " + itemName +
-                ", Units: " + units + ", Price per unit: " + price + ", Total: Rs. " + total);
+            request.setAttribute("success", "Bill generated: Rs. " + total);
+            request.setAttribute("customers", cdao.getAllCustomers());
+            request.setAttribute("items", idao.getAllItems());
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid input values.");
+        } catch (Exception e) {
+            request.setAttribute("error", "Error generating bill.");
+        }
+
         request.getRequestDispatcher("bill.jsp").forward(request, response);
     }
 }

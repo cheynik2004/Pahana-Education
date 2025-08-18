@@ -20,7 +20,6 @@
     double price = item.getPricePerUnit();
     double total = BillCalculator.calculateBill(quantity, price);
 
-    // Generate a unique bill number (simple example: use current time)
     String billNo = "BILL-" + System.currentTimeMillis();
 %>
 <!DOCTYPE html>
