@@ -15,7 +15,7 @@
 <h2>Manage Items</h2>
 
 <% if (request.getAttribute("success") != null) { %>
-    <p style="color:green;"><%= request.getAttribute("success") %></p>
+<p style="color:green;"><%= request.getAttribute("success") %></p>
 <% } %>
 
 <!-- Add Item -->
@@ -69,7 +69,7 @@
         <td><%= item.getPricePerUnit() %></td>
     </tr>
     <%      }
-        }
+    }
     %>
 </table>
 

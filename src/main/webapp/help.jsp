@@ -21,8 +21,8 @@
     <li>"Generate Bill" will calculate the total cost for a customer based on units consumed.</li>
     <li>Click "Logout" when finished.</li>
 </ul>
-    <a href="dashboard.jsp" style="text-decoration:none;">
-        <input type="button" value="Back" style="margin-left:10px;">
-    </a>
+<a href="dashboard.jsp" style="text-decoration:none;">
+    <input type="button" value="Back" style="margin-left:10px;">
+</a>
 </body>
 </html>

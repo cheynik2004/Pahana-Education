@@ -50,17 +50,17 @@ public class CustomerDAO {
     public Customer getCustomer(int accountNo) {
         try (Connection con = DBConnection.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                "SELECT * FROM customers WHERE account_no=?"
+                    "SELECT * FROM customers WHERE account_no=?"
             );
             ps.setInt(1, accountNo);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Customer(
-                    rs.getInt("account_no"),
-                    rs.getString("name"),
-                    rs.getString("address"),
-                    rs.getString("telephone"),
-                    rs.getInt("units_consumed")
+                        rs.getInt("account_no"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("telephone"),
+                        rs.getInt("units_consumed")
                 );
             }
         } catch (Exception e) { e.printStackTrace(); }
@@ -86,11 +86,11 @@ public class CustomerDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 customers.add(new Customer(
-                    rs.getInt("account_no"),
-                    rs.getString("name"),
-                    rs.getString("address"),
-                    rs.getString("telephone"),
-                    0
+                        rs.getInt("account_no"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("telephone"),
+                        0
                 ));
             }
         } catch (Exception e) { e.printStackTrace(); }

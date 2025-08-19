@@ -23,7 +23,8 @@
     <li><a href="addCustomer.jsp">Add Customer</a></li>
     <li><a href="editCustomer.jsp">Edit Customer</a></li>
     <li><a href="item">Manage Items</a></li>
-    <li><a href="bill.jsp">Generate Bill</a></li>
+    <li><a href="bill">Generate Bill</a></li>
+    <li><a href="billHistory">Bill History</a></li>
     <li><a href="help.jsp">Help</a></li>
     <li><a href="logout">Logout</a></li>
 </ul>

@@ -59,9 +59,9 @@ public class ItemDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 items.add(new Item(
-                    rs.getInt("item_id"),
-                    rs.getString("name"),
-                    rs.getDouble("price_per_unit")
+                        rs.getInt("item_id"),
+                        rs.getString("name"),
+                        rs.getDouble("price_per_unit")
                 ));
             }
         } catch (Exception e) { e.printStackTrace(); }
@@ -75,9 +75,9 @@ public class ItemDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Item(
-                    rs.getInt("item_id"),
-                    rs.getString("name"),
-                    rs.getDouble("price_per_unit")
+                        rs.getInt("item_id"),
+                        rs.getString("name"),
+                        rs.getDouble("price_per_unit")
                 );
             }
         } catch (Exception e) { e.printStackTrace(); }

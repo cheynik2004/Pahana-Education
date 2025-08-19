@@ -1,6 +1,6 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
@@ -57,6 +57,15 @@
   <servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>BillHistoryServlet</servlet-name>
+    <servlet-class>servlet.BillHistoryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BillHistoryServlet</servlet-name>
+    <url-pattern>/billHistory</url-pattern>
   </servlet-mapping>
 
 </web-app>
