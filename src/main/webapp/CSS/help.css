@@ -34,13 +34,6 @@ ul li {
     position: relative;
 }
 
-ul li::before {
-    content: "✔";
-    position: absolute;
-    left: 0;
-    color: #1976d2;
-    font-weight: bold;
-}
 
 .button-group {
     display: flex;

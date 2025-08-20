@@ -29,7 +29,6 @@ public class Bill {
         this.generatedDate = LocalDateTime.now();
     }
 
-    // Getters and Setters
     public int getBillId() { return billId; }
     public void setBillId(int billId) { this.billId = billId; }
 

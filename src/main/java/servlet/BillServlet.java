@@ -45,14 +45,14 @@ public class BillServlet extends HttpServlet {
             double total = BillCalculator.calculateBill(quantity, price);
             String billNo = "BILL-" + System.currentTimeMillis();
 
-            // Save bill to database
+
             Bill bill = new Bill(billNo, accountNo, customer.getName(), itemNo,
                     item.getName(), quantity, price, total);
 
             boolean saved = bdao.saveBill(bill);
 
             if (saved) {
-                // Redirect to bill inquiry page with bill details
+
                 response.sendRedirect("billInquiry.jsp?account_no=" + accountNo +
                         "&item_no=" + itemNo + "&quantity=" + quantity +
                         "&bill_no=" + billNo);

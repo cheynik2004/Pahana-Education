@@ -15,7 +15,7 @@ public class AddCustomerServlet extends HttpServlet {
         String address = request.getParameter("address");
         String telephone = request.getParameter("telephone");
 
-        int units = 0; // Default
+        int units = 0;
 
         Customer c = new Customer(accountNo, name, address, telephone, units);
         boolean success = new CustomerDAO().addCustomer(c);

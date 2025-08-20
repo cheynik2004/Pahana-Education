@@ -42,7 +42,7 @@
 <h2>Generate Bill</h2>
 <div class="form-box">
 <form action="bill" method="post">
-    Account No:
+    Customer ID:
     <input type="number" name="account_no" required>
     Item No:
     <select name="item_no" required>

@@ -1,4 +1,3 @@
-@@ -1,11 +1,3 @@
 <%--
   Created by IntelliJ IDEA.
   User: ASUS Vivobook
@@ -27,7 +26,7 @@
 <div class="container">
     <div class="form-section">
         <form action="editCustomer" method="post">
-            <label>Account No:</label>
+            <label>Customer ID:</label>
             <input type="number" name="account_no"
                    value="<%= request.getParameter("account_no") != null ? request.getParameter("account_no") : "" %>" required>
             <input type="submit" name="search" value="Search">
