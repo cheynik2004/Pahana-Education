@@ -10,69 +10,101 @@
 <html>
 <head>
     <title>Manage Items</title>
+    <link rel="stylesheet" type="text/css" href="CSS/manageItems.css">
 </head>
 <body>
-<h2>Manage Items</h2>
+<div id="validation" class="validation"></div>
+
+<h2 class="page-title">Manage Items</h2>
 
 <% if (request.getAttribute("success") != null) { %>
-    <p style="color:green;"><%= request.getAttribute("success") %></p>
+<script>
+    window.onload = function() {
+        showValidation("<%= request.getAttribute("success") %>");
+    }
+</script>
 <% } %>
 
 <!-- Add Item -->
-<form action="item" method="post">
+<form action="item" method="post" class="form-box">
     <input type="hidden" name="action" value="add">
-    Name: <input type="text" name="name" required>
-    Price per Unit: <input type="number" step="0.01" name="price_per_unit" required>
-    <input type="submit" value="Add Item">
-    <a href="dashboard.jsp" style="text-decoration:none;">
-        <input type="button" value="Back" style="margin-left:10px;">
-    </a>
+    <label>Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Price per Unit:</label>
+    <input type="number" step="0.01" name="price_per_unit" required>
+
+    <div class="button-group">
+        <input type="submit" value="Add Item">
+        <a href="dashboard.jsp" style="text-decoration:none;">
+            <input type="button" value="Back">
+        </a>
+    </div>
 </form>
 
 <hr>
 
 <!-- Update Item -->
-<form action="item" method="post">
+<form action="item" method="post" class="form-box">
     <input type="hidden" name="action" value="update">
-    Item ID: <input type="number" name="item_id" required>
-    New Price per Unit: <input type="number" step="0.01" name="price_per_unit" required>
-    <input type="submit" value="Update Item">
-</form>
 
-<hr>
+    <label>Item ID:</label>
+    <input type="number" name="item_id" required>
 
-<!-- Delete Item -->
-<form action="item" method="post">
-    <input type="hidden" name="action" value="delete">
-    Item ID: <input type="number" name="item_id" required>
-    <input type="submit" value="Delete Item">
+    <label>New Price per Unit:</label>
+    <input type="number" step="0.01" name="price_per_unit" required>
+
+    <div class="button-group">
+        <input type="submit" value="Update Item">
+    </div>
 </form>
 
 <hr>
 
 <!-- Items Table -->
-<h3>Existing Items</h3>
-<table border="1">
-    <tr>
-        <th>Item ID</th>
-        <th>Name</th>
-        <th>Price per Unit</th>
-    </tr>
-    <%
-        List<Item> items = (List<Item>) request.getAttribute("items");
-        if (items != null) {
-            for (Item item : items) {
-    %>
-    <tr>
-        <td><%= item.getItemId() %></td>
-        <td><%= item.getName() %></td>
-        <td><%= item.getPricePerUnit() %></td>
-    </tr>
-    <%      }
+<h3 class="table-title">Existing Items</h3>
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Item ID</th>
+            <th>Name</th>
+            <th>Price per Unit</th>
+            <th>Action</th>
+        </tr>
+        <%
+            List<Item> items = (List<Item>) request.getAttribute("items");
+            if (items != null) {
+                for (Item item : items) {
+        %>
+        <tr>
+            <td><%= item.getItemId() %></td>
+            <td><%= item.getName() %></td>
+            <td><%= item.getPricePerUnit() %></td>
+            <td>
+                <form action="item" method="post" style="display:inline;">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="item_id" value="<%= item.getItemId() %>">
+                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this item?');">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <%      }
         }
-    %>
-</table>
+        %>
+    </table>
+</div>
 
+<script>
+    function showValidation(message) {
+        let validation = document.getElementById("validation");
+        validation.innerText = message;
+        validation.className = "validation show";
+        setTimeout(function(){
+            validation.className = validation.className.replace("show", "");
+        }, 3000);
+    }
+</script>
 </body>
 </html>
-

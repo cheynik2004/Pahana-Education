@@ -12,23 +12,41 @@ public class ItemServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         ItemDAO dao = new ItemDAO();
+        String successMsg = null;
 
         switch (action) {
             case "add":
                 String name = request.getParameter("name");
                 double price = Double.parseDouble(request.getParameter("price_per_unit"));
                 dao.addItem(new Item(0, name, price));
+                successMsg = "Successfully added an item!";
                 break;
             case "update":
                 int itemId = Integer.parseInt(request.getParameter("item_id"));
                 double newPrice = Double.parseDouble(request.getParameter("price_per_unit"));
                 dao.updateItemPrice(itemId, newPrice);
+                successMsg = "Successfully updated the item!";
                 break;
             case "delete":
                 int delId = Integer.parseInt(request.getParameter("item_id"));
                 dao.deleteItem(delId);
+                successMsg = "Item has been deleted!";
                 break;
         }
-        response.sendRedirect("dashboard.jsp");
+
+
+        request.setAttribute("items", dao.getAllItems());
+        if (successMsg != null) {
+            request.setAttribute("success", successMsg);
+        }
+        request.getRequestDispatcher("manageItems.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        ItemDAO dao = new ItemDAO();
+        request.setAttribute("items", dao.getAllItems());
+        request.getRequestDispatcher("manageItems.jsp").forward(request, response);
     }
 }
