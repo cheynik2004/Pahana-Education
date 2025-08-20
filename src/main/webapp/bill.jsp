@@ -40,6 +40,7 @@
 <div id="toast" class="toast"></div>
 
 <h2>Generate Bill</h2>
+<div class="form-box">
 <form action="bill" method="post">
     Account No:
     <input type="number" name="account_no" required>
@@ -56,7 +57,7 @@
         <input type="button" value="Back">
     </a>
 </form>
-
+</div>
 <hr>
 <div class="inline-tables">
     <div>

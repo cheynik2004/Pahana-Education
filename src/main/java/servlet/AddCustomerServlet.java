@@ -23,7 +23,7 @@ public class AddCustomerServlet extends HttpServlet {
         if (success) {
             request.setAttribute("success", "Customer added successfully!");
         } else {
-            request.setAttribute("error", "Error adding customer");
+            request.setAttribute("error", "Customer ID already exists!");
         }
 
         request.getRequestDispatcher("addCustomer.jsp").forward(request, response);

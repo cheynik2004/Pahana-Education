@@ -4,42 +4,74 @@ body {
     margin: 0;
     padding: 0;
 }
+
 h2 {
     margin-top: 30px;
     color: #333;
+    text-align: center;
+    justify-content: center;
 }
-form {
-    background: #fff;
-    padding: 24px;
-    border-radius: 8px;
+
+.form-box {
+    background: rgba(25, 118, 210, 0.05);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 340px;
+    border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    max-width: 600px;
+    width: 2000px;
     margin: 40px auto 10px auto;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: nowrap;
 }
+
+label {
+    font-weight: normal;
+    color: #333;
+    margin-right: 6px;
+}
+
 input[type="number"], select {
-    width: 120px;
-    padding: 8px;
-    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 140px;
+    padding: 10px;
     border: 1px solid #bbb;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+
 }
+
+.button-group {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
 input[type="submit"], input[type="button"] {
-    padding: 8px 18px;
+    padding: 10px 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     background: #1976d2;
     color: #fff;
     cursor: pointer;
-    margin-right: 8px;
+    font-size: 14px;
 }
+
 input[type="submit"]:hover, input[type="button"]:hover {
     background: #1565c0;
 }
+
 .inline-tables {
     display: flex;
     gap: 40px;
     justify-content: center;
 }
+
 .inline-tables > div {
     background: #fff;
     padding: 16px;
@@ -47,16 +79,24 @@ input[type="submit"]:hover, input[type="button"]:hover {
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     min-width: 300px;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
+
 th, td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
 }
+
 th {
     background: #e3eafc;
+}
+form input[type="number"],
+form select {
+    display: inline-block;
+    vertical-align: middle;
 }

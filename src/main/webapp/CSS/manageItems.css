@@ -5,24 +5,19 @@ body {
     padding: 0;
 }
 
-h2 {
+.page-title {
     margin-top: 30px;
     color: #333;
     text-align: center;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-}
-
-.styled-form {
+.form-box {
     background: rgba(25, 118, 210, 0.05);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    margin-bottom: 30px;
+    width: 600px;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -30,86 +25,102 @@ h2 {
 
 label {
     font-weight: normal;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    display: block;
+    color: #333;
 }
 
-input[type="text"],
-input[type="number"] {
+input[type="number"], input[type="text"] {
+    width: 100%;
     padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-    font-size: 14px;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus {
-    border-color: #1976d2;
-}
-
-.form-buttons {
+.button-group {
     display: flex;
-    gap: 10px;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
-.btn {
-    padding: 10px 15px;
-    border-radius: 6px;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
+input[type="submit"], input[type="button"], .delete-btn {
+    padding: 10px 16px;
     border: none;
+    border-radius: 8px;
+    background: #1976d2;
+    color: #fff;
+    cursor: pointer;
     font-size: 14px;
 }
 
-.btn-primary {
-    background-color: #1976d2;
-    color: white;
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.delete-btn:hover {
+    background: #1565c0;
 }
 
-.btn-secondary {
-    background-color: #9e9e9e;
-    color: white;
+.table-title {
+    text-align: center;
+    margin: 30px 0 10px 0;
+    color: #333;
 }
 
-.btn-warning {
-    background-color: #ff9800;
-    color: white;
+.table-container {
+    display: flex;
+    justify-content: center;
 }
 
-.btn-danger {
-    background-color: #f44336;
-    color: white;
+table {
+    border-collapse: collapse;
+    width: 80%;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
-.btn:hover {
-    opacity: 0.9;
+th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
 }
 
-/* Toast styling */
-.toast {
+th {
+    background: #e3eafc;
+}
+
+.delete-btn {
+    background: #d9534f;
+}
+
+.delete-btn:hover {
+    background: #c9302c;
+}
+
+/* Validation message */
+.validation {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
-    background-color: #333;
-    color: #fff;
+    background-color: #4CAF50;
+    color: white;
     text-align: center;
-    border-radius: 4px;
-    padding: 14px;
+    border-radius: 8px;
+    padding: 12px;
     position: fixed;
-    z-index: 1000;
+    z-index: 999;
     left: 50%;
-    bottom: 30px;
-    font-size: 14px;
-    transition: visibility 0s, opacity 0.5s ease;
+    top: 20px;
+    font-size: 16px;
     opacity: 0;
+    transition: opacity 0.5s, top 0.5s;
 }
 
-.toast.show {
+.validation.show {
     visibility: visible;
     opacity: 1;
-}
-
-.toast.error {
-    background-color: #e53935;
+    top: 40px;
 }
